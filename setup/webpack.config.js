@@ -146,12 +146,17 @@ if (Mix.preprocessors) {
                                 outputStyle: 'expanded'
                             }, toCompile.pluginOptions)
                         }
-                    ] : [
+                    ] : toCompile.type == 'less' ? [
                         {
                             loader: 'less-loader' + sourceMap,
                             options: toCompile.pluginOptions
                         }
-                    ]
+                    ] : [
+                          {
+                            loader: 'stylus-loader' + sourceMap,
+                            options: toCompile.pluginOptions
+                          }
+                        ]
                 )
             })
         });
@@ -276,6 +281,27 @@ module.exports.plugins = (module.exports.plugins || []).concat([
             context: __dirname,
             output: { path: './' }
         }
+    }),
+
+    new webpack.LoaderOptionsPlugin({
+      test: /\.styl$/,
+      options: {
+        postcss: [
+          require('autoprefixer')
+        ],
+        stylus: {
+          use: [
+            // Here you can require plugins. For example:
+            // require('rupture'),
+          ],
+          import: [
+            // Here you import stuff that the plugin requires. For example:
+            // '~rupture/rupture/index.styl',
+          ]
+        },
+        context: __dirname,
+        output: {path: './'}
+      }
     })
 ]);
 
