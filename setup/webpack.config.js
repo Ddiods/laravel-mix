@@ -292,11 +292,11 @@ module.exports.plugins = (module.exports.plugins || []).concat([
         stylus: {
           use: [
             // Here you can require plugins. For example:
-            // require('rupture'),
+            require('rupture'),
           ],
           import: [
             // Here you import stuff that the plugin requires. For example:
-            // '~rupture/rupture/index.styl',
+            '~rupture/rupture/index.styl',
           ]
         },
         context: __dirname,
